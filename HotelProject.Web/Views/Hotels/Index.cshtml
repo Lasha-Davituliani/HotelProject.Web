@@ -1,5 +1,9 @@
 ﻿@model List<Hotel>
 
+    <div class="row">
+    <a class="btn btn-success w-25 btn btn-primary" asp-controller="Hotels" asp-action="Create">ახალი სასტუმრო</a>
+    </div>
+    
    <div class=" row">
     <table class="table table-bordered table-striped">
         <thead>
@@ -21,6 +25,10 @@
                     <td>@hotel.Country</td>
                     <td>@hotel.City</td>
                     <td>@hotel.PhyisicalAddress</td>
+                    <td>
+                        <a class="btn btn-danger" asp-controller="Hotels" asp-action="Delete" asp-route-id="@hotel.Id">წაშლა</a>
+                        <a class="btn btn-info" asp-controller="Hotels" asp-action="Update" asp-route-id="@hotel.Id">განახლება</a>
+                    </td>
                 </tr>
             }
         </tbody>

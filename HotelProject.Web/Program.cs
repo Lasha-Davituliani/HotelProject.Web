@@ -1,6 +1,13 @@
+using HotelProject.Repository;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
+builder.Services.AddScoped<HotelRepository>();
+builder.Services.AddScoped<ManagerRepository>();
+builder.Services.AddScoped<RoomRepository>();
+
+
 builder.Services.AddControllersWithViews();
 
 var app = builder.Build();

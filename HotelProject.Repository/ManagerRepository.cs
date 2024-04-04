@@ -1,5 +1,6 @@
 ﻿using HotelProject.Data;
 using HotelProject.Models;
+using HotelProject.Repository.Exceptions;
 using Microsoft.Data.SqlClient;
 using System.Data;
 
@@ -7,6 +8,12 @@ namespace HotelProject.Repository
 {
     public class ManagerRepository
     {
+        private readonly HotelRepository _hotelRepository;
+        public ManagerRepository()
+        {
+            _hotelRepository = new HotelRepository();
+        }
+
         public async Task<List<Manager>> GetManagers()
         {
             List<Manager> result = new();
@@ -48,6 +55,45 @@ namespace HotelProject.Repository
                 return result;
             }
         }
+        public async Task<Manager> GetSingleManager(int id)
+        {
+            Manager result = new();
+            const string sqlExpression = "sp_GetSingleManager";
+
+            using (SqlConnection connection = new(ApplicationDbContext.ConnectionString))
+            {
+                try
+                {
+                    SqlCommand command = new(sqlExpression, connection);
+                    command.CommandType = CommandType.StoredProcedure;
+                    command.Parameters.AddWithValue("id", id);
+
+                    await connection.OpenAsync();
+
+                    SqlDataReader reader = await command.ExecuteReaderAsync();
+                    while (await reader.ReadAsync())
+                    {
+                        if (reader.HasRows)
+                        {
+                            result.Id = reader.GetInt32(0);
+                            result.FirstName = !reader.IsDBNull(1) ? reader.GetString(1) : string.Empty;
+                            result.LastName = !reader.IsDBNull(2) ? reader.GetString(2) : string.Empty;
+                            result.HotelId = !reader.IsDBNull(3) ? reader.GetInt32(3) : 0;
+                        }
+                    }
+                }
+                catch (Exception)
+                {
+                    throw;
+                }
+                finally
+                {
+                    await connection.CloseAsync();
+                }
+            }
+
+            return result;
+        }
         public async Task AddManager(Manager manager)
         {
             string sqlExpression = "sp_addManager";
@@ -56,6 +102,18 @@ namespace HotelProject.Repository
             {
                 try
                 {
+                    var allHotels = await _hotelRepository.GetHotels();
+
+                    if (manager.HotelId <= 0)
+                    {
+                        throw new HotelNotFoundException();
+                    }
+
+                    if (!allHotels.Any(x => x.Id == manager.HotelId))
+                    {
+                        throw new HotelNotFoundException();
+                    }
+
                     SqlCommand command = new(sqlExpression, connection);
                     command.CommandType = CommandType.StoredProcedure;
                     command.Parameters.AddWithValue("firstName", manager.FirstName);
