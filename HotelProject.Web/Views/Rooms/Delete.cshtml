@@ -1,0 +1,25 @@
+﻿@model Room
+@{
+    ViewData["Title"] = "ოთახის წაშლა";
+}
+
+<form asp-controller="Rooms" asp-action="DeletePOST" method="post">
+    <input hidden asp-for="Id" />
+    <div class="mb-3">
+        <input class="form-control" asp-for="Name" disabled />
+    </div>
+    <div class="mb-3">
+        <input class="form-control" asp-for="IsFree" disabled />
+    </div>
+    <div class="mb-3">
+        <input class="form-control" asp-for="HotelId" disabled />
+    </div>
+    <div class="mb-3">
+        <input class="form-control" asp-for="DailyPrice" disabled />
+    </div>
+    <div class="mb-3">
+        <input type="submit" class="btn btn-success" value="წაშლა" />
+    </div>
+</form>
+
+

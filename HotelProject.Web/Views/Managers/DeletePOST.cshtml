@@ -5,20 +5,17 @@
 
 <form asp-controller="Managers" asp-action="DeletePOST" method="post">
     <input hidden asp-for="Id" />
-    <div class="mb-3">
-        <label asp-for="FirstName">სახელი</label>
-        <input class="form-control" asp-for="FirstName" />
+    <div class="mb-3">    
+        <input class="form-control" asp-for="FirstName" disabled />
+    </div>
+    <div class="mb-3">    
+        <input class="form-control" asp-for="LastName" disabled />
+    </div>
+    <div class="mb-3">       
+        <input class="form-control" asp-for="HotelId" disabled />
     </div>
     <div class="mb-3">
-        <label asp-for="LastName">გვარი</label>
-        <input class="form-control" asp-for="LastName" />
-    </div>
-    <div class="mb-3">
-        <label asp-for="HotelId">სასტუმრო</label>
-        <input class="form-control" asp-for="HotelId" />
-    </div>
-    <div class="mb-3">
-        <input type="submit" class="btn btn-success" value="დამატება" />
+        <input type="submit" class="btn btn-success" value="წაშლა" />
     </div>
 </form>
 
