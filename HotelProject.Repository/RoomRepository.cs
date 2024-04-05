@@ -33,7 +33,7 @@ namespace HotelProject.Repository
                                 Name = !reader.IsDBNull(1) ? reader.GetString(1) : string.Empty,
                                 IsFree = !reader.IsDBNull(2) ? reader.GetBoolean(2) : false,
                                 HotelId = !reader.IsDBNull(3) ? reader.GetInt32(3) : 0,
-                                DailyPrice = !reader.IsDBNull(4) ? reader.GetDecimal(4) : 0
+                                DailyPrice = !reader.IsDBNull(4) ? reader.GetDouble(4) : 0
                             });
                         }
                     }
@@ -78,7 +78,7 @@ namespace HotelProject.Repository
                                 Name = !reader.IsDBNull(1) ? reader.GetString(1) : string.Empty,
                                 IsFree = !reader.IsDBNull(2) ? reader.GetBoolean(2) : false,
                                 HotelId = !reader.IsDBNull(3) ? reader.GetInt32(3) : 0,
-                                DailyPrice = !reader.IsDBNull(4) ? reader.GetDecimal(4) : 0
+                                DailyPrice = !reader.IsDBNull(4) ? reader.GetDouble(4) : 0
                             });
                         }
                     }
@@ -229,7 +229,7 @@ namespace HotelProject.Repository
                             result.Name = !reader.IsDBNull(1) ? reader.GetString(1) : string.Empty;
                             result.IsFree = !reader.IsDBNull(2) ? reader.GetBoolean(2) : false;
                             result.HotelId = !reader.IsDBNull(3) ? reader.GetInt32(3) : 0;
-                            result.DailyPrice = !reader.IsDBNull(4) ? reader.GetDecimal(4) : 0;
+                            result.DailyPrice = !reader.IsDBNull(4) ? reader.GetDouble(4) : 0;
                         }
                     }
                 }

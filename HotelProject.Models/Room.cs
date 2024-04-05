@@ -6,6 +6,6 @@
         public string Name { get; set; }
         public bool IsFree {  get; set; }
         public int HotelId {  get; set; }
-        public decimal DailyPrice {  get; set; }
+        public double DailyPrice {  get; set; }
     }
 }
