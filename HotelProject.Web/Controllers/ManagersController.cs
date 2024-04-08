@@ -1,16 +1,19 @@
 ﻿using HotelProject.Models;
 using HotelProject.Repository;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace HotelProject.Web.Controllers
 {
     public class ManagersController : Controller
     {
         private readonly ManagerRepository _managerRepository;
+        private readonly HotelRepository _hotelrepository;
 
-        public ManagersController(ManagerRepository managerRepository) 
+        public ManagersController(ManagerRepository managerRepository, HotelRepository hotelRepository) 
         {
             _managerRepository = managerRepository;
+            _hotelrepository = hotelRepository;
         }
         public async Task<IActionResult> Index()
         {
@@ -18,8 +21,10 @@ namespace HotelProject.Web.Controllers
             return View(result);
         }
 
-        public IActionResult Create()
+        public async Task<IActionResult> Create()
         {
+            var hotels = await _hotelrepository.GetHotelsWithoutManager();
+            ViewBag.HotelId = new SelectList(hotels, "Id", "Name");
             return View();
         }
 
